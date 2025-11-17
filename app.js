@@ -93,8 +93,6 @@ async function loadDeals() {
         return;
     }
 
-    console.log(data);
-
     // Add distance to each deal
     data.forEach(deal => {
         const dLat = deal.dispensaries?.disp_lat;
@@ -121,9 +119,7 @@ async function loadDeals() {
             .filter(Boolean)
             .join(' ') || '';
 
-        console.log("Hours for", deal.dispensaries.disp_name, deal.dispensaries.hours);
-
-        const isOpen = isOpenNow(deal.hours || []);
+        const isOpen = isOpenNow(deal.dispensaries?.hours);
         const statusImage = isOpen ? "openSign.png" : "closedSign.png";
         
         const div = document.createElement('div');
