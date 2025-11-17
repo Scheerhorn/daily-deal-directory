@@ -14,14 +14,23 @@ const dealsContainer = document.getElementById('deals-container');
 async function loadDeals() {
     const { data, error } = await supabase
         .from('daily_deals')
-        .select('*')
+        .select(`
+            deal_id,
+            deal_name,
+            deal_description,
+            dispensaries:disp_id (
+                disp_name,
+                disp_lat,
+                disp_long
+            )
+        `)
         .order('deal_id', { ascending: true });
 
     if (error) {
         console.error('Error loading deals:', error);
         return;
     }
-    
+
     dealsContainer.innerHTML = '';
 
     data.forEach(deal => {
@@ -31,8 +40,9 @@ async function loadDeals() {
         div.classList.add('deal-card');
 
         div.innerHTML = 
-            `<h2>Deal Name: ${deal.deal_name}</h2>
-            <p>Deal Description: ${deal.deal_description}`;
+            `<p>Deal Name: ${deal.deal_name}
+            Deal Description: ${deal.deal_description}
+            From: ${deal.dispensaries.disp_name}</p>`;
 
         dealsContainer.appendChild(div);
     });
