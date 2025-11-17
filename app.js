@@ -40,6 +40,22 @@ function calcDistance(lat1, lon1, lat2, lon2) {
     return R * c;
 }
 
+function isOpenNow(hoursArray) {
+    const now = new Date();
+    const day = now.getDay(); // 0 = Sunday, 1 = Monday, …
+
+    const todaysHours = hoursArray.find(h => h.day_of_week === day);
+
+    if (!todaysHours) return false; // no hours for today means closed
+
+    const currentTime = now.toTimeString().slice(0, 5); // "HH:MM"
+
+    return (
+        currentTime >= todaysHours.hour_open &&
+        currentTime <= todaysHours.hour_close
+    );
+}
+
 
 async function loadDeals() {
 
@@ -96,6 +112,9 @@ async function loadDeals() {
             ?.map(di => di.icons?.icon_emoji)
             .filter(Boolean)
             .join(' ') || '';
+
+            const isOpen = isOpenNow(deal.hours || []);
+            const statusImage = isOpen ? "openSign.png" : "closedSign.png";
         
         const div = document.createElement('div');
         
@@ -106,7 +125,8 @@ async function loadDeals() {
             Deal Name: ${deal.deal_name}
             Deal Description: ${deal.deal_description}
             From: ${deal.dispensaries.disp_name}
-            Distance: ${deal.distance.toFixed(2)} miles</p>`;
+            Distance: ${deal.distance.toFixed(2)} miles
+            <img src="${statusImage}" alt="${isOpen ? 'Open' : 'Closed'}" width="50" /></p>`;
 
         dealsContainer.appendChild(div);
     });
