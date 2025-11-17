@@ -55,6 +55,13 @@ async function loadDeals() {
                 disp_name,
                 disp_lat,
                 disp_long
+            ),
+            deal_icons (
+                icons:icon_id (
+                    icon_id,
+                    icon_name,
+                    icon_emoji
+                )
             )
         `)
         .order('deal_id', { ascending: true });
@@ -84,13 +91,19 @@ async function loadDeals() {
     dealsContainer.innerHTML = '';
 
     data.forEach(deal => {
+
+        const icons = deal.deal_icons
+            ?.map(di => di.icons?.icon_emoji)
+            .filter(Boolean)
+            .join(' ') || '';
         
         const div = document.createElement('div');
         
         div.classList.add('deal-card');
 
         div.innerHTML = 
-            `<p>Deal Name: ${deal.deal_name}
+            `<p>${icons}
+            Deal Name: ${deal.deal_name}
             Deal Description: ${deal.deal_description}
             From: ${deal.dispensaries.disp_name}
             Distance: ${deal.distance.toFixed(2)} miles</p>`;
