@@ -42,6 +42,9 @@ function calcDistance(lat1, lon1, lat2, lon2) {
 
 
 async function loadDeals() {
+
+    const userLocation = await getUserLocation();
+
     const { data, error } = await supabase
         .from('daily_deals')
         .select(`
@@ -61,6 +64,23 @@ async function loadDeals() {
         return;
     }
 
+    // Add distance to each deal
+    data.forEach(deal => {
+        const dLat = deal.dispensaries?.disp_lat;
+        const dLong = deal.dispensaries?.disp_long;
+
+        // If a dispensary is missing coords, skip it
+        if (!dLat || !dLong) {
+            deal.distance = Infinity;
+            return;
+        }
+
+        deal.distance = calcDistance(userLocation.lat, userLocation.long, dLat, dLong);
+
+    });
+
+    data.sort((a, b) => a.distance - b.distance);
+
     dealsContainer.innerHTML = '';
 
     data.forEach(deal => {
@@ -72,7 +92,8 @@ async function loadDeals() {
         div.innerHTML = 
             `<p>Deal Name: ${deal.deal_name}
             Deal Description: ${deal.deal_description}
-            From: ${deal.dispensaries.disp_name}</p>`;
+            From: ${deal.dispensaries.disp_name}
+            Distance: ${deal.distance.toFixed(2)} miles</p>`;
 
         dealsContainer.appendChild(div);
     });
