@@ -12,17 +12,30 @@ const dealsContainer = document.getElementById('deals-container');
 
 
 async function loadDeals() {
-const { data, error } = await supabase
-    .from('daily_deals')
-    .select('*')
-    .order('deal_id', { ascending: true });
+    const { data, error } = await supabase
+        .from('daily_deals')
+        .select('*')
+        .order('deal_id', { ascending: true });
 
-if (error) {
-    console.error('Error loading deals:', error);
-    return;
-}
+    if (error) {
+        console.error('Error loading deals:', error);
+        return;
+    }
+    
+    dealsContainer.innerHTML = '';
 
-console.log('Deals from daily_deals:', data);
+    data.forEach(deal => {
+        
+        const div = document.createElement('div');
+        
+        div.classList.add('deal-card');
+
+        div.innerHTML = 
+            `<h2>Deal Name: ${deal.deal_name}</h2>
+            <p>Deal Description: ${deal.deal_description}`;
+
+        dealsContainer.appendChild(div);
+    });
 }
 
 loadDeals();
