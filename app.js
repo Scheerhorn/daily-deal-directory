@@ -42,19 +42,20 @@ function calcDistance(lat1, lon1, lat2, lon2) {
 
 function isOpenNow(hoursArray) {
     const now = new Date();
-    const day = now.getDay(); // 0 = Sunday, 1 = Monday, …
+    const day = now.getDay(); // 0 = Sunday
 
     const todaysHours = hoursArray.find(h => h.day_of_week === day);
+    if (!todaysHours) return false;
 
-    if (!todaysHours) return false; // no hours for today means closed
+    // Format "HH:MM"
+    const open = todaysHours.hour_open.slice(0, 5);   // "08:08"
+    const close = todaysHours.hour_close.slice(0, 5); // "20:08"
 
-    const currentTime = now.toTimeString().slice(0, 5); // "HH:MM"
+    const currentTime = now.toTimeString().slice(0, 5);
 
-    return (
-        currentTime >= todaysHours.hour_open &&
-        currentTime <= todaysHours.hour_close
-    );
+    return currentTime >= open && currentTime <= close;
 }
+
 
 
 async function loadDeals() {
@@ -67,10 +68,15 @@ async function loadDeals() {
             deal_id,
             deal_name,
             deal_description,
-            dispensaries:disp_id (
+            dispensaries:dispensaries!daily_deals_disp_id_fkey (
                 disp_name,
                 disp_lat,
-                disp_long
+                disp_long,
+                hours:hours!hours_disp_id_fkey (
+                    day_of_week,
+                    hour_open,
+                    hour_close
+                )
             ),
             deal_icons (
                 icons:icon_id (
@@ -79,13 +85,15 @@ async function loadDeals() {
                     icon_emoji
                 )
             )
-        `)
+        `)                
         .order('deal_id', { ascending: true });
 
     if (error) {
         console.error('Error loading deals:', error);
         return;
     }
+
+    console.log(data);
 
     // Add distance to each deal
     data.forEach(deal => {
@@ -113,8 +121,10 @@ async function loadDeals() {
             .filter(Boolean)
             .join(' ') || '';
 
-            const isOpen = isOpenNow(deal.hours || []);
-            const statusImage = isOpen ? "openSign.png" : "closedSign.png";
+        console.log("Hours for", deal.dispensaries.disp_name, deal.dispensaries.hours);
+
+        const isOpen = isOpenNow(deal.hours || []);
+        const statusImage = isOpen ? "openSign.png" : "closedSign.png";
         
         const div = document.createElement('div');
         
