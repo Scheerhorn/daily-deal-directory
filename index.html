@@ -3,29 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Website</title>
+    <title>Daily Deal Directory</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="navbar">
-        <div class="logo">Daily Deal Directory</div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="admin.html">Admin</a></li>
-            </ul>
-        </nav>
-    </header>
+<header class="navbar">
+    <div class="logo">Daily Deal Directory</div>
+</header>
 
-    <main>
-        <h1>Deals Near You</h1>
-        <div id="deals-container"></div>
-    </main>
+<main class="home-wrapper">
 
-    <script type="module" src="app.js"></script>
+    <!-- Dropdown button -->
+    <button id="nearbyDropdown" class="dropdown-button">
+        Nearby ▾
+    </button>
 
+    <!-- Hidden prompt box -->
+    <div id="locationPrompt" class="location-prompt hidden">
+        <p>We need your location to show deals near you.</p>
+        <button id="enableLocation" class="location-btn">
+            Enable Location
+        </button>
+    </div>
+
+    <!-- Deals container (populated AFTER location grant) -->
+    <div id="deals-container" class="cards-list"></div>
+
+</main>
+
+<script type="module" src="app.js"></script>
 </body>
 </html>

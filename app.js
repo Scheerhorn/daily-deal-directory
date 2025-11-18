@@ -6,7 +6,22 @@ const supabase = createClient(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4cGFxcXBkZHJjdW54Y3duamdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3MDAwNzcsImV4cCI6MjA3NTI3NjA3N30.BlCa7aLn9XneDhElnCtwR8YuuxGvTR_8bc2aAkivmcQ'
 );
 
+
+
+const dropdown = document.getElementById('nearbyDropdown');
+const promptBox = document.getElementById('locationPrompt');
+const enableBtn = document.getElementById('enableLocation');
 const dealsContainer = document.getElementById('deals-container');
+
+// Show prompt when dropdown tapped
+dropdown.addEventListener('click', () => {
+    promptBox.classList.toggle('hidden');
+});
+
+// When user clicks “Enable Location”, THEN run your loadDeals()
+enableBtn.addEventListener('click', () => {
+    loadDeals();
+});
 
 function getUserLocation() {
     return new Promise((resolve, reject) => {
