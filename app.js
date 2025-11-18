@@ -85,7 +85,8 @@ async function loadDeals() {
                     icon_emoji
                 )
             )
-        `)                
+        `)
+        .eq('day_of_week', new Date().getDay())                
         .order('deal_id', { ascending: true });
 
     if (error) {
