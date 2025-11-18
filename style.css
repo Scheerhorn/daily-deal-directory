@@ -12,7 +12,7 @@
 body {
     margin: 0;
     font-family: "Arial", sans-serif;
-    background: var(--offwhite);
+    background: var(--green-soft);
     color: var(--dark-text);
 }
 
@@ -21,7 +21,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 40px;
+    padding: 1.5rem 2.5rem;
     background: var(--green-dark);
     color: white;
 }
@@ -49,6 +49,7 @@ body {
 
 .navbar a:hover {
     opacity: 0.75;
+    text-decoration: underline;
 }
 
 /* ===== Main Content ===== */
