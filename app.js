@@ -18,6 +18,7 @@ dropdown.addEventListener('click', () => {
     promptBox.classList.toggle('hidden');
 });
 
+
 // When user clicks “Enable Location”, THEN run your loadDeals()
 enableBtn.addEventListener('click', () => {
     loadDeals();
