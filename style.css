@@ -1,0 +1,68 @@
+/* ===== Color Palette ===== */
+:root {
+    --green-soft: #7aa87a;
+    --green-dark: #4c6b4d;
+    --purple-soft: #9f85b8;
+    --purple-dark: #6e4e8d;
+    --offwhite: #f8f7f6;
+    --dark-text: #2c2c2c;
+}
+
+/* ===== Global Styles ===== */
+body {
+    margin: 0;
+    font-family: "Arial", sans-serif;
+    background: var(--offwhite);
+    color: var(--dark-text);
+}
+
+/* ===== Navigation Bar ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    background: var(--green-dark);
+    color: white;
+}
+
+.logo {
+    font-size: 1.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: opacity 0.2s ease;
+}
+
+.navbar a:hover {
+    opacity: 0.75;
+}
+
+/* ===== Main Content ===== */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ===== Deal Cards (YOU CAN STYLE THESE LATER) ===== */
+.deal-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
