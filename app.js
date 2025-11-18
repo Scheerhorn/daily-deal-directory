@@ -9,20 +9,13 @@ const supabase = createClient(
 
 
 const dropdown = document.getElementById('nearbyDropdown');
-const promptBox = document.getElementById('locationPrompt');
-const enableBtn = document.getElementById('enableLocation');
 const dealsContainer = document.getElementById('deals-container');
 
 // Show prompt when dropdown tapped
 dropdown.addEventListener('click', () => {
-    promptBox.classList.toggle('hidden');
-});
-
-
-// When user clicks “Enable Location”, THEN run your loadDeals()
-enableBtn.addEventListener('click', () => {
     loadDeals();
 });
+
 
 function getUserLocation() {
     return new Promise((resolve, reject) => {
