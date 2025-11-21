@@ -13,46 +13,28 @@ const dealsContainer = document.getElementById('deals-container');
 const specialsButton = document.getElementById('specialsButton');
 const specialsContainer = document.getElementById('specials-container');
 
-let dealsOpen = false;
-let specialsOpen = false;
 
 // Show prompt when dealsButton tapped
 dealsButton.addEventListener('click', () => {
-    dealsOpen = !dealsOpen;
-    specialsOpen = false;
+    const isHidden = dealsContainer.classList.contains('hidden');
 
-    if (dealsOpen) {
-
-        console.log("SHOW DEALS");
+    if (isHidden) {
         dealsContainer.classList.remove('hidden');
         loadDeals();
     } else {
-
-        console.log("HIDE DEALS");
         dealsContainer.classList.add('hidden');
     }
-
-    console.log("dealsOpen:", dealsOpen, "specialsOpen:", specialsOpen);
-
 });
 
-
 specialsButton.addEventListener('click', () => {
-    specialsOpen = !specialsOpen;
-    dealsOpen = false;
+    const isHidden = specialsContainer.classList.contains('hidden');
 
-    if (specialsOpen) {
-        console.log("SHOW SPECIALS");
+    if (isHidden) {
         specialsContainer.classList.remove('hidden');
         loadSpecials();
     } else {
-        console.log("HIDE SPECIALS");
         specialsContainer.classList.add('hidden');
-
     }
-
-    console.log("dealsOpen:", dealsOpen, "specialsOpen:", specialsOpen);
-
 });
 
 
