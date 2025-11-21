@@ -63,9 +63,10 @@ body {
 }
 
 .hidden {
-    display: none;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
 }
-
 /* ===== Location Button ===== */
 .location-btn {
     margin-top: 1rem;

@@ -13,14 +13,49 @@ const dealsContainer = document.getElementById('deals-container');
 const specialsButton = document.getElementById('specialsButton');
 const specialsContainer = document.getElementById('specials-container');
 
+let dealsOpen = false;
+let specialsOpen = false;
+
 // Show prompt when dealsButton tapped
 dealsButton.addEventListener('click', () => {
-    loadDeals();
+    dealsOpen = !dealsOpen;
+    specialsOpen = false;
+
+    if (dealsOpen) {
+
+        console.log("SHOW DEALS");
+        dealsContainer.classList.remove('hidden');
+        loadDeals();
+    } else {
+
+        console.log("HIDE DEALS");
+        dealsContainer.classList.add('hidden');
+    }
+
+    console.log("dealsOpen:", dealsOpen, "specialsOpen:", specialsOpen);
+
 });
 
+
 specialsButton.addEventListener('click', () => {
-    loadSpecials();
+    specialsOpen = !specialsOpen;
+    dealsOpen = false;
+
+    if (specialsOpen) {
+        console.log("SHOW SPECIALS");
+        specialsContainer.classList.remove('hidden');
+        loadSpecials();
+    } else {
+        console.log("HIDE SPECIALS");
+        specialsContainer.classList.add('hidden');
+
+    }
+
+    console.log("dealsOpen:", dealsOpen, "specialsOpen:", specialsOpen);
+
 });
+
+
 
 function getUserLocation() {
     return new Promise((resolve, reject) => {
@@ -84,9 +119,6 @@ function formatDate(dateStr) {
 
 async function loadDeals() {
     
-    specialsContainer.classList.add('hidden');
-    dealsContainer.classList.remove('hidden');
-    
     const userLocation = await getUserLocation();
     
     const { data, error } = await supabase
@@ -146,14 +178,14 @@ async function loadDeals() {
             ?.map(di => di.icons?.icon_emoji)
             .filter(Boolean)
             .join(' ') || '';
-    
+        
         const isOpen = isOpenNow(deal.dispensaries?.hours);
         const statusImage = isOpen ? "openSign.png" : "closedSign.png";
         
         const div = document.createElement('div');
         
         div.classList.add('deal-card');
-    
+        
         div.innerHTML = 
             `<p>${icons}
             Deal Name: ${deal.deal_name}
@@ -161,17 +193,15 @@ async function loadDeals() {
             From: ${deal.dispensaries.disp_name}
             Distance: ${deal.distance.toFixed(2)} miles
             <img src="${statusImage}" alt="${isOpen ? 'Open' : 'Closed'}" width="50" /></p>`;
-    
+        
         dealsContainer.appendChild(div);
     });
 };
 
 async function loadSpecials() {
     
-    dealsContainer.classList.add('hidden');
-    specialsContainer.classList.remove('hidden');
     const userLocation = await getUserLocation();
-
+    
     
     const { data, error } = await supabase
         .from('specials')
