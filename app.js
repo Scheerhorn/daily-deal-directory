@@ -319,3 +319,28 @@ closeMenu.addEventListener('click', () => {
         sideMenu.classList.add('hidden');
     }, 300); // match the CSS transition time
 });
+
+// === AGE GATE ===
+const ageGate = document.getElementById("ageGate");
+const ageYes = document.getElementById("ageYes");
+const ageNo = document.getElementById("ageNo");
+
+// Check age from localStorage
+const ageVerified = localStorage.getItem("is21");
+
+// If NOT verified, show popup
+if (!ageVerified) {
+    ageGate.classList.remove("hidden");
+}
+
+// User clicks YES
+ageYes?.addEventListener("click", () => {
+    localStorage.setItem("is21", "true");
+    ageGate.classList.add("hidden");
+});
+
+// User clicks NO → redirect to your chosen page
+ageNo?.addEventListener("click", () => {
+    window.location.href = "http://en.spongepedia.org/index.php?title=Weenie_Hut_Juniors"; 
+    // Change this to any URL you want
+});
