@@ -19,25 +19,24 @@ function activateTab(selected, other) {
 }
 
 
-// Show prompt when dealsButton tapped
-dealsButton.addEventListener('click', () => {
-    activateTab(dealsButton, specialsButton);
+// Only run tab logic on pages where the buttons exist
+if (dealsButton && specialsButton) {
     
-    dealsContainer.classList.remove('hidden');
-    specialsContainer.classList.add('hidden');
+    dealsButton.addEventListener('click', () => {
+        activateTab(dealsButton, specialsButton);
+        dealsContainer.classList.remove('hidden');
+        specialsContainer.classList.add('hidden');
+        loadDeals();
+    });
     
-    loadDeals();
-});
-
-specialsButton.addEventListener('click', () => {
-    activateTab(specialsButton, dealsButton);
+    specialsButton.addEventListener('click', () => {
+        activateTab(specialsButton, dealsButton);
+        specialsContainer.classList.remove('hidden');
+        dealsContainer.classList.add('hidden');
+        loadSpecials();
+    });
     
-    specialsContainer.classList.remove('hidden');
-    dealsContainer.classList.add('hidden');
-    
-    loadSpecials();
-});
-
+}
 
 
 
@@ -46,7 +45,7 @@ function getUserLocation() {
         if (!navigator.geolocation) {
             reject(new Error("Geolocation not supported"));
         }
-    
+        
         navigator.geolocation.getCurrentPosition(
             (pos) => resolve({
                 lat: pos.coords.latitude,
