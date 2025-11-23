@@ -176,8 +176,10 @@ async function loadDeals() {
             </div>
 
             <div class="deal-line-2">
-                ${deal.dispensaries.disp_name} • ${deal.distance.toFixed(2)} mi
+                ${deal.dispensaries.disp_name} • ${deal.distance.toFixed(2)} mi 
             </div>
+            
+            <img class="status-icon" src="${statusImage}" alt="${isOpen ? "Open" : "Closed"}">
         `;
         
         dealsContainer.appendChild(div);

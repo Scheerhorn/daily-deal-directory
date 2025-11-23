@@ -116,10 +116,15 @@ body {
 .deal-line-1 {
     font-size: 1rem;
     font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 
 .deal-line-2 {
     font-size: 0.9rem;
@@ -128,6 +133,13 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.status-icon {
+    height: 22px;
+    width: 22px;
+    flex-shrink: 0;
+}
+
 
 /* ===== ULTRA COMPACT MOBILE MODE ===== */
 @media (max-width: 600px) {
