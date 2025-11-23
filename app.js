@@ -157,7 +157,7 @@ async function loadDeals() {
     dealsContainer.innerHTML = '';
     
     data.forEach(deal => {
-    
+        
         const icons = deal.deal_icons
             ?.map(di => di.icons?.icon_emoji)
             .filter(Boolean)
@@ -174,7 +174,7 @@ async function loadDeals() {
             <div class="deal-line-1">
                 ${icons} ${deal.deal_name} — ${deal.deal_description}
             </div>
-
+            
             <div class="deal-line-2">
                 ${deal.dispensaries.disp_name} • ${deal.distance.toFixed(2)} mi 
             </div>
@@ -202,7 +202,12 @@ async function loadSpecials() {
             dispensaries:dispensaries!specials_disp_id_fkey (
                 disp_name,
                 disp_lat,
-                disp_long
+                disp_long,
+                hours:hours!hours_disp_id_fkey (
+                    day_of_week,
+                    hour_open,
+                    hour_close
+                )
             ),
             special_icons (
                 icons:icon_id (
@@ -253,6 +258,10 @@ async function loadSpecials() {
             ?.map(si => si.icons?.icon_emoji)
             .filter(Boolean)
             .join(' ') || '';
+            
+        const isOpen = isOpenNow(special.dispensaries?.hours);
+        const statusImage = isOpen ? "openSign.png" : "closedSign.png";
+        
         
         const div = document.createElement('div');
         
@@ -269,6 +278,8 @@ async function loadSpecials() {
             <div class="deal-line-2">
                 ${special.dispensaries.disp_name} • ${special.distance.toFixed(2)} mi
             </div>
+
+            <img class="status-icon" src="${statusImage}" alt="${isOpen ? "Open" : "Closed"}">
         `;
         
         specialsContainer.appendChild(div);
