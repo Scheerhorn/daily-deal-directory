@@ -168,13 +168,15 @@ async function loadDeals() {
         
         div.classList.add('deal-card');
         
-        div.innerHTML = 
-            `<p>${icons}
-            ${deal.deal_name}
-            Description: ${deal.deal_description}
-            From: ${deal.dispensaries.disp_name}
-            Distance: ${deal.distance.toFixed(2)} miles
-            <img src="${statusImage}" alt="${isOpen ? 'Open' : 'Closed'}" width="50" /></p>`;
+        div.innerHTML = `
+            <div class="deal-line-1">
+                ${icons} ${deal.deal_name} — ${deal.deal_description}
+            </div>
+
+            <div class="deal-line-2">
+                ${deal.dispensaries.disp_name} • ${deal.distance.toFixed(2)} mi
+            </div>
+        `;
         
         dealsContainer.appendChild(div);
     });
@@ -256,18 +258,13 @@ async function loadSpecials() {
         const end = formatDate(special.end_date);
         
         div.innerHTML = `
-            <p>
-                ${icons}
-                ${special.special_name || ''}
-                <br>
-                ${special.special_description}
-                <br>
-                From: ${special.dispensaries.disp_name}
-                <br>
-                Dates: ${start} → ${end}
-                <br> 
-                Distance: ${special.distance.toFixed(2)} miles      
-            </p>
+            <div class="deal-line-1">
+                ${icons} ${special.special_name || ''} — ${special.special_description}
+            </div>
+            
+            <div class="deal-line-2">
+                ${special.dispensaries.disp_name} • ${special.distance.toFixed(2)} mi
+            </div>
         `;
         
         specialsContainer.appendChild(div);

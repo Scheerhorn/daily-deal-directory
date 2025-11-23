@@ -93,10 +93,88 @@ body {
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.1);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.deal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.6rem 1.4rem rgba(0,0,0,0.12);
 }
 
 /* ===== Smooth dropdown animation ===== */
 @keyframes dropdownFade {
     from { opacity: 0; transform: translateY(-1rem); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Improve deal card readability */
+.deal-card p {
+    line-height: 1.5;
+    font-size: 1.1rem;
+}
+
+.deal-card p br {
+    margin-bottom: 0.5rem;
+}
+
+.deal-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* Card text structure */
+.deal-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.deal-description {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+}
+
+.deal-source,
+.deal-dates,
+.deal-distance {
+    font-size: 1rem;
+    opacity: 0.85;
+}
+
+
+/* ===== ULTRA COMPACT MOBILE MODE ===== */
+@media (max-width: 600px) {
+    
+    .cards-list {
+        gap: 0.4rem;
+    }
+    
+    .deal-card {
+        padding: 0.4rem 0.6rem;
+        border-radius: 0.4rem;
+        box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.1);
+        gap: 0.1rem;
+    }
+    
+    .deal-line-1 {
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .deal-line-2 {
+        font-size: 0.65rem;
+        opacity: 0.7;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .deal-status-icon {
+        display: none; /* optional — saves tons of space */
+    }
 }
