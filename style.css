@@ -23,6 +23,16 @@ body {
     color: white;
 }
 
+.menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.1rem;
+}
 /* ===== Top Tab Bar ===== */
 .tab-bar {
     display: flex;
@@ -86,6 +96,59 @@ body {
     visibility: hidden;
     height: 0;
     overflow: hidden;
+}
+
+/* ===== Slide-Out Menu Panel ===== */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70vw;              /* nice for mobile */
+    max-width: 300px;         /* nice for desktop */
+    height: 100vh;
+    background: var(--green-dark);
+    color: white;
+    padding: 2rem 1.5rem;
+    box-shadow: -4px 0 12px rgba(0,0,0,0.25);
+    transform: translateX(100%);    /* hide off-screen */
+    transition: transform 0.3s ease;
+    z-index: 9999;
+}
+
+.side-menu.open {
+    transform: translateX(0); /* slide into view */
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.side-menu a {
+    font-size: 1.4rem;
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.side-menu a:hover {
+    opacity: 0.7;
+}
+
+/* ===== Close Button Inside Side Menu ===== */
+.close-menu {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
 
 /* ===== Deal Cards Container ===== */

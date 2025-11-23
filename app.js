@@ -67,10 +67,10 @@ function calcDistance(lat1, lon1, lat2, lon2) {
     const dLon = toRad(lon2 - lon1);
     
     const a = Math.sin(dLat/2)**2 +
-                Math.cos(toRad(lat1)) *
-                Math.cos(toRad(lat2)) *
-                Math.sin(dLon/2)**2;
-    
+        Math.cos(toRad(lat1)) *
+        Math.cos(toRad(lat2)) *
+        Math.sin(dLon/2)**2;
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
 };
@@ -289,3 +289,34 @@ async function loadSpecials() {
     
     
 };
+
+// OPEN AND CLOSE NAV MENU TOGGLES 
+
+const menuToggle = document.getElementById('menuToggle');
+const sideMenu = document.getElementById('sideMenu');
+
+menuToggle.addEventListener('click', () => {
+    const isOpening = !sideMenu.classList.contains('open');
+
+    if (isOpening) {
+        sideMenu.classList.remove('hidden');
+        sideMenu.classList.add('open');
+    } else {
+        sideMenu.classList.remove('open');
+
+        // Delay re-hiding until the slide-out animation finishes (300ms)
+        setTimeout(() => {
+            sideMenu.classList.add('hidden');
+        }, 300);
+    }
+});
+
+const closeMenu = document.getElementById('closeMenu');
+
+closeMenu.addEventListener('click', () => {
+    sideMenu.classList.remove('open');
+
+    setTimeout(() => {
+        sideMenu.classList.add('hidden');
+    }, 300); // match the CSS transition time
+});
