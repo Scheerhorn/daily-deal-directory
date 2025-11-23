@@ -170,8 +170,8 @@ async function loadDeals() {
         
         div.innerHTML = 
             `<p>${icons}
-            Deal Name: ${deal.deal_name}
-            Deal Description: ${deal.deal_description}
+            ${deal.deal_name}|
+            ${deal.deal_description}
             From: ${deal.dispensaries.disp_name}
             Distance: ${deal.distance.toFixed(2)} miles
             <img src="${statusImage}" alt="${isOpen ? 'Open' : 'Closed'}" width="50" /></p>`;
