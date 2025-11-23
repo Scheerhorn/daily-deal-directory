@@ -66,9 +66,19 @@ body {
     font-weight: bold;
 }
 
+.disclaimer {
+    font-size: 0.85rem;
+    margin: 0;
+    padding: 0;
+}
+
+.home-wrapper > .disclaimer {
+    margin-bottom: -1.2rem;  
+}
+
 /* ===== Page Wrapper ===== */
 .home-wrapper {
-    padding: 3rem 5vw;
+    padding: 1rem 5vw;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
