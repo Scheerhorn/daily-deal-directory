@@ -276,7 +276,7 @@ async function loadSpecials() {
             </div>
             
             <div class="deal-line-2">
-                ${special.dispensaries.disp_name} • ${special.distance.toFixed(2)} mi
+                Until ${end} • ${special.dispensaries.disp_name} • ${special.distance.toFixed(2)} mi
             </div>
 
             <img class="status-icon" src="${statusImage}" alt="${isOpen ? "Open" : "Closed"}">
