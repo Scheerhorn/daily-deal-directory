@@ -342,5 +342,4 @@ ageYes?.addEventListener("click", () => {
 // User clicks NO → redirect to your chosen page
 ageNo?.addEventListener("click", () => {
     window.location.href = "http://en.spongepedia.org/index.php?title=Weenie_Hut_Juniors"; 
-    // Change this to any URL you want
 });
