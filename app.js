@@ -21,32 +21,23 @@ function activateTab(selected, other) {
 
 // Show prompt when dealsButton tapped
 dealsButton.addEventListener('click', () => {
-    
     activateTab(dealsButton, specialsButton);
     
-    const isHidden = dealsContainer.classList.contains('hidden');
+    dealsContainer.classList.remove('hidden');
+    specialsContainer.classList.add('hidden');
     
-    if (isHidden) {
-        dealsContainer.classList.remove('hidden');
-        loadDeals();
-    } else {
-        dealsContainer.classList.add('hidden');
-    }
+    loadDeals();
 });
 
 specialsButton.addEventListener('click', () => {
-    
     activateTab(specialsButton, dealsButton);
     
-    const isHidden = specialsContainer.classList.contains('hidden');
+    specialsContainer.classList.remove('hidden');
+    dealsContainer.classList.add('hidden');
     
-    if (isHidden) {
-        specialsContainer.classList.remove('hidden');
-        loadSpecials();
-    } else {
-        specialsContainer.classList.add('hidden');
-    }
+    loadSpecials();
 });
+
 
 
 
