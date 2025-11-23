@@ -151,7 +151,7 @@ async function loadDeals() {
         
     });
     
-    
+    data.sort((a, b) => a.distance - b.distance);
     
     dealsContainer.innerHTML = '';
     
