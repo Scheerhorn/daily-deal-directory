@@ -33,14 +33,14 @@ body {
     padding: 3rem 5vw;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 /* ===== Dropdown Button ===== */
 .dropdown-button {
     width: 100%;
-    padding: .6rem;
-    font-size: 1.6rem;
+    padding: 0.6rem;
+    font-size: 1.4rem;
     background: var(--purple-dark);
     color: white;
     border: none;
@@ -53,99 +53,57 @@ body {
     background: var(--purple-soft);
 }
 
-/* ===== Hidden Dropdown Box ===== */
-.location-prompt {
-    background: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-    animation: dropdownFade 0.3s ease;
-}
-
+/* ===== Hidden (used by JS) ===== */
 .hidden {
     visibility: hidden;
     height: 0;
     overflow: hidden;
 }
-/* ===== Location Button ===== */
-.location-btn {
-    margin-top: 1rem;
-    padding: 1.2rem;
-    width: 100%;
-    font-size: 1.3rem;
-    background: var(--green-dark);
-    color: white;
-    border: none;
-    border-radius: 1rem;
-    cursor: pointer;
-}
 
-/* ===== Deal Cards List ===== */
+/* ===== Deal Cards Container ===== */
 .cards-list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem; /* much smaller default gap than original */
 }
 
 /* ===== Individual Deal Card ===== */
 .deal-card {
     background: white;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.1);
+    border-radius: 0.8rem;
+    padding: 1rem;
+    box-shadow: 0 0.25rem 0.8rem rgba(0,0,0,0.1);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
 .deal-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0.6rem 1.4rem rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.12);
 }
 
-/* ===== Smooth dropdown animation ===== */
-@keyframes dropdownFade {
-    from { opacity: 0; transform: translateY(-1rem); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Improve deal card readability */
-.deal-card p {
-    line-height: 1.5;
-    font-size: 1.1rem;
-}
-
-.deal-card p br {
-    margin-bottom: 0.5rem;
-}
-
-.deal-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-}
-
-/* Card text structure */
-.deal-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-}
-
-.deal-description {
-    font-size: 1.1rem;
-    margin-bottom: 0.6rem;
-}
-
-.deal-source,
-.deal-dates,
-.deal-distance {
+/* ===== Card Text (2-line compact layout) ===== */
+.deal-line-1 {
     font-size: 1rem;
-    opacity: 0.85;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+.deal-line-2 {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /* ===== ULTRA COMPACT MOBILE MODE ===== */
 @media (max-width: 600px) {
-    
+
     .cards-list {
         gap: 0.4rem;
     }
@@ -159,22 +117,11 @@ body {
     
     .deal-line-1 {
         font-size: 0.75rem;
-        font-weight: 500;
         line-height: 1.1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     
     .deal-line-2 {
         font-size: 0.65rem;
         opacity: 0.7;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    .deal-status-icon {
-        display: none; /* optional — saves tons of space */
     }
 }
