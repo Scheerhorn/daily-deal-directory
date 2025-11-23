@@ -23,6 +23,34 @@ body {
     color: white;
 }
 
+/* ===== Top Tab Bar ===== */
+.tab-bar {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 0.7rem;
+    font-size: 1.2rem;
+    background: var(--purple-dark);
+    color: white;
+    border: none;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.tab-button:hover {
+    background: var(--purple-soft);
+}
+
+.tab-button.active {
+    transform: translateY(-2px);
+}
+
+
 .logo {
     font-size: 1.8rem;
     font-weight: bold;

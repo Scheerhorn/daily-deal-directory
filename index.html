@@ -8,28 +8,26 @@
 </head>
 
 <body>
-
-<header class="navbar">
-    <div class="logo">Daily Deal Directory</div>
-</header>
-
-<main class="home-wrapper">
-    <!-- Dropdown button -->
-    <button id="dealsButton" class="dropdown-button">
-        Daily Deals ▾
-    </button>
-    <!-- Deals container (populated AFTER location grant) -->
-    <div id="deals-container" class="cards-list hidden"></div>
-
-    <button id="specialsButton" class="dropdown-button">
-        Specials ▾
-    </button>
-    <div id="specials-container" class="cards-list hidden"></div>
-
-</main>
-
-<script type="module" src="app.js"></script>
-
-
+    
+    <header class="navbar">
+        <div class="logo">Daily Deal Directory</div>
+    </header>
+    
+    <main class="home-wrapper">
+    
+        <div class="tab-bar">
+            <button id="dealsButton" class="tab-button active">
+                Daily Deals
+            <button id="specialsButton" class="tab-button">
+                Specials
+            </button>
+        </div>
+    
+        <div id="deals-container" class="cards-list"></div>
+        <div id="specials-container" class="cards-list hidden"></div>
+    
+    </main>
+    
+    <script type="module" src="app.js"></script>
 </body>
 </html>

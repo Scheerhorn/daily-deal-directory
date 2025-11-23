@@ -13,11 +13,19 @@ const dealsContainer = document.getElementById('deals-container');
 const specialsButton = document.getElementById('specialsButton');
 const specialsContainer = document.getElementById('specials-container');
 
+function activateTab(selected, other) {
+    selected.classList.add('active');
+    other.classList.remove('active');
+}
+
 
 // Show prompt when dealsButton tapped
 dealsButton.addEventListener('click', () => {
+    
+    activateTab(dealsButton, specialsButton);
+    
     const isHidden = dealsContainer.classList.contains('hidden');
-
+    
     if (isHidden) {
         dealsContainer.classList.remove('hidden');
         loadDeals();
@@ -27,8 +35,11 @@ dealsButton.addEventListener('click', () => {
 });
 
 specialsButton.addEventListener('click', () => {
+    
+    activateTab(specialsButton, dealsButton);
+    
     const isHidden = specialsContainer.classList.contains('hidden');
-
+    
     if (isHidden) {
         specialsContainer.classList.remove('hidden');
         loadSpecials();
