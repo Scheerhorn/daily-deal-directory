@@ -1,10 +1,39 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import { formatDate } from './utils/formatDate.js';
+import { calcDistance } from './utils/distance.js';
+import { isOpenNow } from './utils/time.js';
+import { getUserLocation } from './utils/location.js';
+import { initNavMenu } from './components/navMenu.js';
+import { initAgeGate } from './components/ageGate.js';
+import { initTabs } from './components/tabs.js';
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    initNavMenu();
+    initAgeGate();
+    
+    // Only initialize tabs on pages that have them
+    const page = document.body.dataset.page;
+    if (page === "home") {
+        initTabs({
+            loadDeals,
+            loadSpecials
+        });
+    }
+});
+
+
+
 
 // Initialize Supabase client
 const supabase = createClient(
     'https://fxpaqqpddrcunxcwnjgk.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ4cGFxcXBkZHJjdW54Y3duamdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3MDAwNzcsImV4cCI6MjA3NTI3NjA3N30.BlCa7aLn9XneDhElnCtwR8YuuxGvTR_8bc2aAkivmcQ'
 );
+
+
 
 
 
@@ -37,66 +66,6 @@ if (dealsButton && specialsButton) {
     });
     
 }
-
-
-
-function getUserLocation() {
-    return new Promise((resolve, reject) => {
-        if (!navigator.geolocation) {
-            reject(new Error("Geolocation not supported"));
-        }
-        
-        navigator.geolocation.getCurrentPosition(
-            (pos) => resolve({
-                lat: pos.coords.latitude,
-                long: pos.coords.longitude
-            }),
-            (err) => reject(err)
-        );
-    });
-    
-    
-}
-
-function calcDistance(lat1, lon1, lat2, lon2) {
-    const R = 3958.8; // radius of Earth in miles
-    const toRad = (x) => x * Math.PI / 180;
-    
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-    
-    const a = Math.sin(dLat/2)**2 +
-        Math.cos(toRad(lat1)) *
-        Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2)**2;
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-};
-
-function isOpenNow(hoursArray) {
-    const now = new Date();
-    const day = now.getDay(); // 0 = Sunday
-    
-    const todaysHours = hoursArray.find(h => h.day_of_week === day);
-    if (!todaysHours) return false;
-    
-    // Format "HH:MM"
-    const open = todaysHours.hour_open.slice(0, 5);   // "08:08"
-    const close = todaysHours.hour_close.slice(0, 5); // "20:08"
-    
-    const currentTime = now.toTimeString().slice(0, 5);
-    
-    return currentTime >= open && currentTime <= close;
-};
-
-function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric"
-    });
-};
 
 
 
@@ -289,57 +258,5 @@ async function loadSpecials() {
     
 };
 
-// OPEN AND CLOSE NAV MENU TOGGLES 
 
-const menuToggle = document.getElementById('menuToggle');
-const sideMenu = document.getElementById('sideMenu');
 
-menuToggle.addEventListener('click', () => {
-    const isOpening = !sideMenu.classList.contains('open');
-
-    if (isOpening) {
-        sideMenu.classList.remove('hidden');
-        sideMenu.classList.add('open');
-    } else {
-        sideMenu.classList.remove('open');
-
-        // Delay re-hiding until the slide-out animation finishes (300ms)
-        setTimeout(() => {
-            sideMenu.classList.add('hidden');
-        }, 300);
-    }
-});
-
-const closeMenu = document.getElementById('closeMenu');
-
-closeMenu.addEventListener('click', () => {
-    sideMenu.classList.remove('open');
-
-    setTimeout(() => {
-        sideMenu.classList.add('hidden');
-    }, 300); // match the CSS transition time
-});
-
-// === AGE GATE ===
-const ageGate = document.getElementById("ageGate");
-const ageYes = document.getElementById("ageYes");
-const ageNo = document.getElementById("ageNo");
-
-// Check age from localStorage
-const ageVerified = localStorage.getItem("is21");
-
-// If NOT verified, show popup
-if (!ageVerified) {
-    ageGate.classList.remove("hidden");
-}
-
-// User clicks YES
-ageYes?.addEventListener("click", () => {
-    localStorage.setItem("is21", "true");
-    ageGate.classList.add("hidden");
-});
-
-// User clicks NO → redirect to your chosen page
-ageNo?.addEventListener("click", () => {
-    window.location.href = "http://en.spongepedia.org/index.php?title=Weenie_Hut_Juniors"; 
-});
