@@ -163,7 +163,7 @@ async function loadDeals() {
             .join(' ') || '';
         
         const isOpen = isOpenNow(deal.dispensaries?.hours);
-        const statusImage = isOpen ? "openSign.png" : "closedSign.png";
+        const statusImage = isOpen ? "assets/images/openSign.png" : "assets/images/closedSign.png";
         
         const div = document.createElement('div');
         
@@ -259,7 +259,7 @@ async function loadSpecials() {
             .join(' ') || '';
             
         const isOpen = isOpenNow(special.dispensaries?.hours);
-        const statusImage = isOpen ? "openSign.png" : "closedSign.png";
+        const statusImage = isOpen ? "assets/images/openSign.png" : "assets/images/closedSign.png";
         
         
         const div = document.createElement('div');
